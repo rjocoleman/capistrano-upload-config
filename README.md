@@ -80,7 +80,7 @@ $ cap staging config:init
 ```
 
 Can be used during a deploy, If your `:config_files` and `:linked_files` are going to be the same I suggest hooking in before
-`deploy:starting` to that the config files exist before symlinks are created:
+`deploy:check` to that the config files exist before symlinks are created:
 
 ```ruby
 # add to config/deploy.rb
