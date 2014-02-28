@@ -80,12 +80,12 @@ $ cap staging config:init
 ```
 
 Can be used during a deploy, If your `:config_files` and `:linked_files` are going to be the same I suggest hooking in before
-`deploy:check` to that the config files exist before symlinks are created:
+`deploy:check:linked_files` so that the shared directories have been created but the shared files not checked:
 
 ```ruby
 # add to config/deploy.rb
 
-before 'deploy:starting', 'config:push'
+before 'deploy:check:linked_files', 'config:push'
 ```
 
 
