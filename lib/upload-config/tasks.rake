@@ -43,7 +43,7 @@ namespace :config do
           local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
           if File.exists?(local_path)
             info "Uploading config #{local_path} as #{config}"
-            upload! StringIO.new(local_path), File.join(shared_path, config)
+            upload! StringIO.new(IO.read(local_path)), File.join(shared_path, config)
           else
             fail "#{local_path} doesn't exist"
           end
