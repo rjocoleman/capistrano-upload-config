@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'capistrano-upload-config'
-  spec.version       = '0.2.0'
+  spec.version       = '0.3.0'
   spec.authors       = 'Robert Coleman'
   spec.email         = 'github@robert.net.nz'
   spec.description   = %q{Capistrano 3.x tasks to upload shared config that is stored outside of SCM}

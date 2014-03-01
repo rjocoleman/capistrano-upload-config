@@ -32,7 +32,7 @@ Or install it yourself as:
 Require the module in your `Capfile`:
 
 ```ruby
-require 'capistrano-upload-config'
+require 'capistrano/upload-config'
 ```
 
 `capistrano-upload-config` comes with 3 tasks:
