@@ -8,10 +8,10 @@ namespace :config do
         if File.exists?(local_path)
           warn "Already Exists: #{local_path}"
         else
-          example_prefix = fetch(:config_example_prefix, '')
-          if File.exists?("#{config}#{example_prefix}")
-            FileUtils.cp "#{config}#{example_prefix}", local_path
-            info "Copied: #{config}#{example_prefix} to #{local_path}"
+          example_suffix = fetch(:config_example_suffix, '')
+          if File.exists?("#{config}#{example_suffix}")
+            FileUtils.cp "#{config}#{example_suffix}", local_path
+            info "Copied: #{config}#{example_suffix} to #{local_path}"
           else
             File.open(local_path, "w") {}
             info "Created: #{local_path} as empty file"
@@ -58,7 +58,9 @@ namespace :load do
   task :defaults do
 
     set :config_files, -> { fetch(:linked_files) }
-    set :config_example_prefix, '-example'
+    set :config_example_suffix, '-example'
+    # https://github.com/rjocoleman/capistrano-upload-config/issues/1
+    set :config_example_prefix, -> { fetch(:config_example_suffix) }
 
   end
 end

@@ -95,7 +95,7 @@ Configurable options, shown here with defaults:
 
 ```ruby
 set :config_files, fetch(:linked_files)
-set :config_example_prefix, '-example'
+set :config_example_suffix, '-example'
 ```
 
 By default your `:linked_files` are assumed to be config files, this might be totally wrong for your environment, never fear just:
@@ -112,16 +112,16 @@ Note, capistrano-upload-config can only upload confir to your shared folder (and
 #### Example files
 
 Do you use example files checked into your source control? e.g. `config/database.yml-example`
-These will be used when running `config:init`. If your prefix differs, e.g. `config/database.yml.eg` set this as:
+These will be used when running `config:init`. If your suffix differs, e.g. `config/database.yml.eg` set this as:
 
 ```ruby
 # in deploy.rb (or similar)
 
-set :config_example_prefix, '.eg'
+set :config_example_suffix, '.eg'
 
 ```
 
-Note, only prefixes (i.e. after the whole filename) are supported.
+Note, only suffixes (i.e. after the whole filename) are supported.
 
 
 ## Contributing
