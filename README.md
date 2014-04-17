@@ -1,5 +1,7 @@
 # Capistrano-Upload-Config
 
+[![Gem Version](https://badge.fury.io/rb/capistrano-upload-config.svg)](http://badge.fury.io/rb/capistrano-upload-config)
+
 Upload, initialize and maintain configuration files for Capistrano 3.x outside of SCM.
 (or in SCM just different files for different stages - the choice is yours!)
 
