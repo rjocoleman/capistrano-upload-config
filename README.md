@@ -92,7 +92,7 @@ before 'deploy:check:linked_files', 'config:push'
 ```
 
 
-#### config:push
+#### config:pull
 
 This task download the config from the remote server.
 
