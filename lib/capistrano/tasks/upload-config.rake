@@ -52,6 +52,19 @@ namespace :config do
     end
   end
 
+  desc 'Pull configuration from the remote server'
+  task :pull do
+    on release_roles :all do
+      within shared_path do
+        fetch(:config_files).each do |config|
+          local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
+          info "Downloading config #{config} as #{local_path} "
+          download! File.join(shared_path, config), local_path
+        end
+      end
+    end
+  end
+
 end
 
 namespace :load do

@@ -37,11 +37,12 @@ Require the module in your `Capfile`:
 require 'capistrano/upload-config'
 ```
 
-`capistrano-upload-config` comes with 3 tasks:
+`capistrano-upload-config` comes with 4 tasks:
 
 * `config:check`
 * `config:init`
 * `config:push`
+* `config:pull`
 
 
 #### config:check
@@ -89,6 +90,20 @@ Can be used during a deploy, If your `:config_files` and `:linked_files` are goi
 
 before 'deploy:check:linked_files', 'config:push'
 ```
+
+
+#### config:push
+
+This task download the config from the remote server.
+
+Can be used to get a freshly updated config file before edit on push it.
+
+```shell
+$ cap staging config:pull
+INFO Downloading config config/database.yml as config/database.staging.yml
+INFO Downloading config/database.staging.yml 100.0%
+```
+
 
 
 ### Configuration
