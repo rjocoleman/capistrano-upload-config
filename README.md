@@ -140,6 +140,21 @@ set :config_example_suffix, '.eg'
 
 Note, only suffixes (i.e. after the whole filename) are supported.
 
+#### Use Stage Name Remotely
+
+By default, capistrano-upload-config will remove the environment name from the
+file name for the server's version.  Occasionally, you'll want the server's file
+name to reflect the local file's name.
+
+```ruby
+# in deploy.rb
+
+set :config_use_stage_remotely, true
+set :config_files, [ ".env.php" ]
+```
+
+Running `cap staging config:push` will upload the remote file as
+`.env.staging.php`, rather than `.env.php`.
 
 ## Contributing
 
