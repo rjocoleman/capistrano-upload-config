@@ -13,7 +13,7 @@ module CapistranoUploadConfig
         local_file = [local_file, extension].join('.') unless extension.empty?
         local_path = File.readlink(File.join(path, local_file))
       end
-      
+
     end
   end
 end
