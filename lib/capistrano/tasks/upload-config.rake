@@ -4,7 +4,7 @@ namespace :config do
   task :init do
     run_locally do
       fetch(:config_files).each do |config|
-        local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
+        local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
         if File.exists?(local_path)
           warn "Already Exists: #{local_path}"
         else
@@ -25,7 +25,7 @@ namespace :config do
   task :check do
     run_locally do
       fetch(:config_files).each do |config|
-        local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
+        local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
         if File.exists?(local_path)
           info "Found: #{local_path}"
         else
@@ -41,11 +41,12 @@ namespace :config do
       within shared_path do
         use_stage_remotely = fetch(:config_use_stage_remotely)
         fetch(:config_files).each do |config|
-          local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
+          local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
+          remote_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s)
           server_name = use_stage_remotely ? local_path.split('/').last : config
           if File.exists?(local_path)
             info "Uploading config #{local_path} as #{server_name}"
-            upload! StringIO.new(IO.read(local_path)), File.join(shared_path, server_name)
+            upload! StringIO.new(IO.read(remote_path)), File.join(shared_path, server_name)
           else
             fail "#{local_path} doesn't exist"
           end
@@ -60,7 +61,7 @@ namespace :config do
       within shared_path do
         use_stage_remotely = fetch(:config_use_stage_remotely)
         fetch(:config_files).each do |config|
-          local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
+          local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
           server_name = use_stage_remotely ? local_path.split('/').last : config
           info "Downloading config #{server_name} as #{local_path} "
           download! File.join(shared_path, server_name), local_path
@@ -74,6 +75,7 @@ end
 namespace :load do
   task :defaults do
 
+    set :local_base_dir, ''
     set :config_files, -> { fetch(:linked_files) }
     set :config_example_suffix, '-example'
     # https://github.com/rjocoleman/capistrano-upload-config/issues/1

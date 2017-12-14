@@ -76,7 +76,7 @@ This task creates the config on the remote server.
 
 
 ```shell
-$ cap staging config:init
+$ cap staging config:push
  WARN Already Exists: config/database.staging.yml
  INFO Copied: config/example.yml-example to config/example.staging.yml
  Created: config/foobar.staging.yml as empty file
@@ -113,6 +113,7 @@ Configurable options, shown here with defaults:
 ```ruby
 set :config_files, fetch(:linked_files)
 set :config_example_suffix, '-example'
+set :local_base_dir, ''
 ```
 
 By default your `:linked_files` are assumed to be config files, this might be totally wrong for your environment, never fear just:
@@ -155,6 +156,18 @@ set :config_files, [ ".env.php" ]
 
 Running `cap staging config:push` will upload the remote file as
 `.env.staging.php`, rather than `.env.php`.
+
+#### Local Base Dir
+
+Using this option you can base your local config file/s in any directory, if unset they're assumed to be in the current directory tree.
+
+```ruby
+# in deploy.rb
+
+set :local_base_dir, '..'
+```
+
+For example Capistrano is outside of the application root and your config lives relative to the directory above.
 
 ## Contributing
 

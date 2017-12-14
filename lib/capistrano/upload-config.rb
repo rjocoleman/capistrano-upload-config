@@ -4,8 +4,8 @@ module CapistranoUploadConfig
   class Helpers
     class << self
 
-      def get_local_config_name(config, stage)
-        path = File.dirname(config)
+      def get_config_name(config, stage, local_base_dir='')
+        path = File.dirname(File.join(local_base_dir, config))
         extension = File.extname(config)
         filename = File.basename(config, extension)
         extension.sub!(/^\./, '')
