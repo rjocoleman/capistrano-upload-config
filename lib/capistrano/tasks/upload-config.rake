@@ -75,7 +75,7 @@ end
 namespace :load do
   task :defaults do
 
-    set :local_base_dir, ''
+    set :local_base_dir, '.'
     set :config_files, -> { fetch(:linked_files) }
     set :config_example_suffix, '-example'
     # https://github.com/rjocoleman/capistrano-upload-config/issues/1
