@@ -42,11 +42,10 @@ namespace :config do
         use_stage_remotely = fetch(:config_use_stage_remotely)
         fetch(:config_files).each do |config|
           local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
-          remote_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s)
           server_name = use_stage_remotely ? local_path.split('/').last : config
           if File.exists?(local_path)
             info "Uploading config #{local_path} as #{server_name}"
-            upload! StringIO.new(IO.read(remote_path)), File.join(shared_path, server_name)
+            upload! StringIO.new(IO.read(local_path)), File.join(shared_path, server_name)
           else
             fail "#{local_path} doesn't exist"
           end
@@ -74,13 +73,11 @@ end
 
 namespace :load do
   task :defaults do
-
     set :local_base_dir, '.'
     set :config_files, -> { fetch(:linked_files) }
     set :config_example_suffix, '-example'
     # https://github.com/rjocoleman/capistrano-upload-config/issues/1
     set :config_example_prefix, -> { fetch(:config_example_suffix) }
     set :config_use_stage_remotely, false
-
   end
 end
