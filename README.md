@@ -77,9 +77,7 @@ This task creates the config on the remote server.
 
 ```shell
 $ cap staging config:push
- WARN Already Exists: config/database.staging.yml
- INFO Copied: config/example.yml-example to config/example.staging.yml
- Created: config/foobar.staging.yml as empty file
+ INFO Uploading config config/database.staging.yml as config/database.yml
 ```
 
 Can be used during a deploy, If your `:config_files` and `:linked_files` are going to be the same I suggest hooking in before
