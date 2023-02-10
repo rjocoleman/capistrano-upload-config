@@ -5,11 +5,11 @@ namespace :config do
     run_locally do
       fetch(:config_files).each do |config|
         local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
-        if File.exists?(local_path)
+        if File.exist?(local_path)
           warn "Already Exists: #{local_path}"
         else
           example_suffix = fetch(:config_example_suffix, '')
-          if File.exists?("#{config}#{example_suffix}")
+          if File.exist?("#{config}#{example_suffix}")
             FileUtils.cp "#{config}#{example_suffix}", local_path
             info "Copied: #{config}#{example_suffix} to #{local_path}"
           else
@@ -26,7 +26,7 @@ namespace :config do
     run_locally do
       fetch(:config_files).each do |config|
         local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
-        if File.exists?(local_path)
+        if File.exist?(local_path)
           info "Found: #{local_path}"
         else
           warn "Not found: #{local_path}"
@@ -43,7 +43,7 @@ namespace :config do
         fetch(:config_files).each do |config|
           local_path = CapistranoUploadConfig::Helpers.get_config_name(config, fetch(:stage).to_s, fetch(:local_base_dir).to_s)
           server_name = use_stage_remotely ? local_path.split('/').last : config
-          if File.exists?(local_path)
+          if File.exist?(local_path)
             info "Uploading config #{local_path} as #{server_name}"
             upload! StringIO.new(IO.read(local_path)), File.join(shared_path, server_name)
           else
